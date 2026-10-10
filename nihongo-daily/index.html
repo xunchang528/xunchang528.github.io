@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f5ef" />
+    <meta name="description" content="每天 10 分钟，从零开始学日语。30 课、每日练习和本机学习记录。" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>日语小步走 · 每天学一点</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#today" aria-label="日语小步走首页">
+          <span class="brand-mark" aria-hidden="true"><span>日</span></span>
+          <span class="brand-copy"><strong>日语小步走</strong><small>NIHONGO · DAY BY DAY</small></span>
+        </a>
+        <button class="icon-button install-button" id="installButton" type="button" hidden aria-label="安装到主屏幕" title="安装到主屏幕">
+          <span aria-hidden="true">＋</span><span class="install-label">安装</span>
+        </button>
+      </header>
+
+      <main class="main-content" id="mainContent" tabindex="-1" aria-live="polite"></main>
+
+      <nav class="bottom-nav" aria-label="主要导航">
+        <button class="nav-item is-active" type="button" data-route="today" aria-current="page">
+          <span class="nav-icon" aria-hidden="true">◒</span><span>今天</span>
+        </button>
+        <button class="nav-item" type="button" data-route="roadmap">
+          <span class="nav-icon nav-grid" aria-hidden="true">▦</span><span>课程表</span>
+        </button>
+        <button class="nav-item" type="button" data-route="review">
+          <span class="nav-icon" aria-hidden="true">↻</span><span>复习</span>
+        </button>
+      </nav>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

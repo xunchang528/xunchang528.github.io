@@ -1,0 +1,8 @@
+{
+  "name": "nihongo-daily",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}
