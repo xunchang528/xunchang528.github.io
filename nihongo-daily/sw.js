@@ -1,4 +1,4 @@
-const CACHE_NAME = "nihongo-daily-shell-v1";
+const CACHE_NAME = "nihongo-daily-shell-v2";
 const APP_FILES = [
   "./",
   "./index.html",

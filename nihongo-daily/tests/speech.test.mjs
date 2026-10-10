@@ -24,42 +24,41 @@ class FakeUtterance {
   constructor(text) { this.text = text; }
 }
 
-test("waits for browser voices and selects a Japanese voice", () => {
+test("speaks immediately and selects a Japanese voice when available", () => {
   const synthesis = new FakeSynthesis();
   const japaneseVoice = { lang: "ja-JP", name: "Japanese" };
 
   assert.equal(speakJapanese("こんにちは", {
     synthesis,
     Utterance: FakeUtterance,
-    waitMs: 50,
   }), true);
-  assert.equal(synthesis.utterances.length, 0);
-
-  synthesis.voices = [japaneseVoice];
-  synthesis.dispatch("voiceschanged");
-
   assert.equal(synthesis.utterances.length, 1);
   assert.equal(synthesis.utterances[0].text, "こんにちは");
   assert.equal(synthesis.utterances[0].lang, "ja-JP");
-  assert.equal(synthesis.utterances[0].voice, japaneseVoice);
   assert.equal(synthesis.utterances[0].rate, 0.85);
   assert.equal(synthesis.cancelCount, 1);
   assert.equal(synthesis.resumeCount, 1);
-});
 
-test("uses the system voice if the browser does not load a voice list", async () => {
-  const synthesis = new FakeSynthesis();
-  speakJapanese("ありがとう", {
+  synthesis.voices = [japaneseVoice];
+  assert.equal(speakJapanese("こんにちは", {
     synthesis,
     Utterance: FakeUtterance,
-    waitMs: 1,
+  }), true);
+  assert.equal(synthesis.utterances[1].voice, japaneseVoice);
+});
+
+test("speaks synchronously with the system voice if the browser has no voice list yet", () => {
+  const synthesis = new FakeSynthesis();
+  const result = speakJapanese("ありがとう", {
+    synthesis,
+    Utterance: FakeUtterance,
   });
 
-  await new Promise((resolve) => setTimeout(resolve, 10));
-
+  assert.equal(result, true);
   assert.equal(synthesis.utterances.length, 1);
   assert.equal(synthesis.utterances[0].lang, "ja-JP");
   assert.equal(synthesis.utterances[0].voice, undefined);
+  assert.equal(synthesis.listeners.has("voiceschanged"), false);
 });
 
 test("reports unavailable speech support instead of failing silently", () => {
